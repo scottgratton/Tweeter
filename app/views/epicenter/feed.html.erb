@@ -1,0 +1,75 @@
+
+<div class="container-fluid">
+
+<div class="col-md-4">
+  <div class="panel panel-default user_card">
+    <% if current_user.avatar.blank? == false %>
+    <%= image_tag current_user.avatar.url, size:80, class: "user-pic-nav img-circle avatar avatar_float" %>
+    <% end %>
+    <div id="user_card_user"
+    <h3><%= current_user.username.capitalize %></h3>
+    </div>
+      <div class="user_card_stats">
+        <div class="card_stat">
+        <h4>Tweeters</h4>
+        <h3><%= current_user.tweets.count %></h3>
+        </div>
+        <div class="card_stat">
+        <h4>Following</h4>
+        <h3><%= current_user.following.count %></h3>
+        </div>
+        <div class="card_stat">
+        <h4>Followers</h4>
+        <h3>unknown</h3>
+        </div>
+      </div>
+
+  </div> <!-- panel-->
+
+<!-- Who to follow-->
+    <div class="panel panel-default">
+      <div class="well">
+      <h4>Who to follow</h4>
+      <ul class="list-group">
+        <% @users.each do |user| %>
+          <% if user == current_user %>
+          <% else %>
+            <div class="list-group-item">
+              <div class="follow-avatar">
+              <% if user.avatar.blank? == false %>
+              <%= image_tag user.avatar.url, size:50, class: "img-circle" %>
+              <% end %>
+              </div>
+              <div class="follow-user">
+              <h5>@<%= user.username %></h5>
+              <% if current_user.following.exclude? user.id.to_i %>
+              <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-sm btn-primary" %>
+              <% elsif current_user.following.include? user.id.to_i %>
+              <%= link_to "Unfollow", unfollow_path(id: user.id), class: "btn btn-sm btn-danger" %>
+              <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        </div>
+      </div> <!-- panel-->
+  </div>
+
+
+  <div class="col-md-8 ">
+  <% @following_tweets.each do |tweet| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if tweet.user.avatar.blank? == false %>
+        <%= image_tag tweet.user.avatar.url, size:50, class: "user-pic-nav img-circle" %>
+        <% end %>
+        <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user.id) %>
+        <span id="time_created"><%= time_ago_in_words tweet.created_at %></span>
+      </div> <!-- panel head-->
+      <div class="panel-body">
+        <p><%= tweet.message %></p>
+        </div> <!-- panel body-->
+      </div> <!-- panel-->
+  <% end %>
+  </div> <!-- col 3-->
+</div> <!-- container-->
