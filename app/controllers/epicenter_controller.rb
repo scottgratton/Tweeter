@@ -2,13 +2,14 @@ class EpicenterController < ApplicationController
   before_action :authenticate_user!
 
   def feed
-    @following_tweets = []
+    following_tweets_temp = []
     Tweet.all.each do |tweet|
       if tweet.user_id == current_user.id ||
          current_user.following.include?(tweet.user_id)
-      @following_tweets.push tweet
+      following_tweets_temp.push tweet
       end
     end
+    @following_tweets = following_tweets_temp.sort.reverse
     @users = User.all
   end
 

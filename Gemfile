@@ -38,6 +38,9 @@ gem 'carrierwave'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'carrierwave'
+gem 'bootstrap_form'
+
+
 
 
 group :development, :test do
