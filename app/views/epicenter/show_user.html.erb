@@ -1,18 +1,23 @@
-<h1><%= current_user.username.capitalize %>'s profile</h1>
-
-<h2> <%= @user.name %></h2>
-
-<p>
-<strong>Bio:</strong>
-<%= @user.bio %>
-</p>
-
-<% @user.tweets.each do |tweet| %>
-<div class="container well">
-<%= tweet.user.name %>
-<%= tweet.user.username %>
-<p>
-  <%= tweet.message %>
-</p>
-</div>
+<div class="user-jumbo">
+<% if current_user.avatar.blank? == false %>
+<%= image_tag @user.avatar.url, size:180, class: "user-pic-nav img-circle avatar avatar_float" %>
 <% end %>
+</div>
+
+<div class="container-fluid">
+  <div class="col-md-4">
+
+      <div>
+      <h2> <%= @user.name %></h2>
+      <h3> <%= @user.username %></h3>
+      <p><%= @user.bio %></p>
+
+  </div>
+</div>
+
+<div class="col-md-8 ">
+
+  <%= render 'tweet_feed', tweet_feed: @tweet_feed %>
+
+</div> <!-- col-->
+</div> <!-- container-->

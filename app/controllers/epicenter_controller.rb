@@ -9,12 +9,13 @@ class EpicenterController < ApplicationController
       following_tweets_temp.push tweet
       end
     end
-    @following_tweets = following_tweets_temp.sort.reverse
+    @tweet_feed = following_tweets_temp.sort.reverse
     @users = User.all
   end
 
   def show_user
     @user = User.find(params[:id])
+    @tweet_feed = @user.tweets
   end
 
   def now_following

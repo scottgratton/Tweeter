@@ -41,7 +41,7 @@
               <% end %>
               </div>
               <div class="follow-user">
-              <h5>@<%= user.username %></h5>
+              <h5><%= link_to "@#{user.username}", show_user_path(id: user.id) %></h5>
               <% if current_user.following.exclude? user.id.to_i %>
               <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-sm btn-primary" %>
               <% elsif current_user.following.include? user.id.to_i %>
@@ -57,19 +57,8 @@
 
 
   <div class="col-md-8 ">
-  <% @following_tweets.each do |tweet| %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <% if tweet.user.avatar.blank? == false %>
-        <%= image_tag tweet.user.avatar.url, size:50, class: "user-pic-nav img-circle" %>
-        <% end %>
-        <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user.id) %>
-        <span id="time_created"><%= time_ago_in_words tweet.created_at %></span>
-      </div> <!-- panel head-->
-      <div class="panel-body">
-        <p><%= tweet.message %></p>
-        </div> <!-- panel body-->
-      </div> <!-- panel-->
-  <% end %>
-  </div> <!-- col 3-->
+
+    <%= render 'tweet_feed', tweet_feed: @tweet_feed %>
+
+  </div> <!-- col-->
 </div> <!-- container-->

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<% @tweet_feed.each do |tweet| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <% if tweet.user.avatar.blank? == false %>
+      <%= image_tag tweet.user.avatar.url, size:50, class: "user-pic-nav img-circle" %>
+      <% end %>
+      <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user.id) %>
+      <span> | </span>
+      <span id="time_created"><%= time_ago_in_words tweet.created_at %></span>
+
+
+      <span class="dropdown tweet-dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <div class="glyphicon glyphicon-chevron-down"></div></a>
+        <ul class="dropdown-menu dropdown-menu-right tweet-dropdown">
+          <% if tweet.user == current_user %>
+          <li><%= link_to 'Edit Tweet', edit_tweet_path(tweet) %></li>
+          <li><%= link_to 'Delete Tweet', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <% elsif tweet.user != current_user %>
+          <li><%= link_to "Unfollow @#{tweet.user.username}", unfollow_path(id: tweet.user.id) %></li>
+          <% end %>
+      </ul>
+    </span>
+
+    </div> <!-- panel head-->
+    <div class="panel-body">
+      <p><%= tweet.message %></p>
+      </div> <!-- panel body-->
+    </div> <!-- panel-->
+<% end %>
