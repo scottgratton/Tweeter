@@ -1,23 +1,31 @@
 <div class="user-jumbo">
-<% if current_user.avatar.blank? == false %>
-<%= image_tag @user.avatar.url, size:180, class: "user-pic-nav img-circle avatar avatar_float" %>
-<% end %>
-</div>
+  <% if current_user.avatar.blank? == false %>
+  <%= image_tag @user.avatar.url, size:180, class: "user-pic-nav img-circle avatar avatar_float" %>
+  <% end %>
+  <div class="user-page-follow">
 
-<div class="container-fluid">
-  <div class="col-md-4">
-
-      <div>
-      <h2> <%= @user.name %></h2>
-      <h3> <%= @user.username %></h3>
-      <p><%= @user.bio %></p>
+    <!--FOLLOW/UNFOLLOW -->
+    <% if current_user != @user %>
+      <% if current_user.following.exclude? @user.id.to_i %>
+      <%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-md btn-primary" %>
+      <% elsif current_user.following.include? @user.id.to_i %>
+      <%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-md btn-danger" %>
+      <% end %>
+    <% end %>
 
   </div>
 </div>
 
-<div class="col-md-8 ">
+  <div class="container-fluid">
+    <div class="col-md-4">
+      <div> <br>
+      <h2> <%= @user.name %></h2>
+      <h4> @<%= @user.username %></h4>
+      <p><%= @user.bio %></p>
+      </div>
+    </div>
 
-  <%= render 'tweet_feed', tweet_feed: @tweet_feed %>
-
-</div> <!-- col-->
-</div> <!-- container-->
+    <div class="col-md-8 ">
+      <%= render 'tweet_feed', tweet_feed: @tweet_feed %>
+    </div> <!-- col-->
+  </div> <!-- container-->

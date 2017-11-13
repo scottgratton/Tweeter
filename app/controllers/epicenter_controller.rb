@@ -15,7 +15,7 @@ class EpicenterController < ApplicationController
 
   def show_user
     @user = User.find(params[:id])
-    @tweet_feed = @user.tweets
+    @tweet_feed = @user.tweets.sort.reverse
   end
 
   def now_following
@@ -24,9 +24,8 @@ class EpicenterController < ApplicationController
       current_user.save
       # redirect_to show_user_path(id: params[:id])
     else
-      redirect_to feed_path
     end
-    redirect_to feed_path
+    redirect_back(fallback_location: root_path)
 
   end
 
@@ -34,6 +33,6 @@ class EpicenterController < ApplicationController
     current_user.following.delete(params[:id].to_i)
     current_user.save
 
-    redirect_to feed_path
+    redirect_back(fallback_location: root_path)
   end
 end
