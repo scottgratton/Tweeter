@@ -25,10 +25,10 @@
 
 
     <!-- ***************** Modal ***************** -->
-    <button type="button" value='tweet' class="btn btn-info btn-sm" data-toggle="modal" data-target="#viewTweetModal">View</button>
+    <button type="button" value='tweet' class="btn btn-info btn-sm" data-toggle="modal" data-target="#viewTweetModal-<%= tweet.id %>">View</button>
     <!-- Modal -->
     <div class="container">
-      <div class="modal fade" id="viewTweetModal" role="dialog">
+      <div class="modal fade" id="viewTweetModal-<%= tweet.id %>" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">

@@ -1,9 +1,11 @@
+<% if @showTweet.user.avatar.blank? == false %>
+<%= image_tag @showTweet.user.avatar.url, size:50, class: "user-pic-nav img-circle" %>
+<% end %>
+<%= link_to "@#{@showTweet.user.username}", show_user_path(id: @showTweet.user.id) %>
+<span> | </span>
+<span id="time_created"><%= time_ago_in_words @showTweet.created_at %></span>
+
 <p>
   <strong>Message:</strong>
   <%= @showTweet.message %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @showTweet.user.username %>
 </p>
