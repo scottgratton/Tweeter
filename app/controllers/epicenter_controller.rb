@@ -26,11 +26,14 @@ class EpicenterController < ApplicationController
     else
     end
     redirect_back(fallback_location: root_path)
+  end
 
+  def tag_tweets
+    @tag = Tag.find(params[:id])
   end
 
   def unfollow
-    current_user.following.delete(params[:id].to_i)
+    current_user.following.delete(params[:id].to_i) #no if statement needed. returns nil if no id found.
     current_user.save
 
     redirect_back(fallback_location: root_path)
