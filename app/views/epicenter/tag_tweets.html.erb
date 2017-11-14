@@ -2,17 +2,6 @@
     <h1><%= @tag.phrase %></h1>
 </div>
 
-<div class="row">
-  <!-- a place for current user stats -->
-  <div>
-    <% @tag.tweets.order(created_at: :desc).each do |tweet| %>
-        <p>
-	    <%= tweet.user.name %> <%= "@#{tweet.user.username}" %>
-	    • <%= time_ago_in_words(tweet.created_at) %>
-        </p>
-	<p>
-	    <%= tweet.message.html_safe %>
-	</p>
-    <% end %>
-   </div>
-</div>
+<% @tweet_feed = @tag.tweets %>
+
+<%= render 'tweet_feed', tweet_feed: @tweet_feed %>
