@@ -9,7 +9,7 @@
       <% if current_user.following.exclude? @user.id.to_i %>
       <%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-md btn-primary" %>
       <% elsif current_user.following.include? @user.id.to_i %>
-      <%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-md btn-danger" %>
+      <%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-md btn-info unfollow-btn" %>
       <% end %>
     <% end %>
 

@@ -1,7 +1,10 @@
 <div class="container-fluid">
 
 <div class="col-md-4">
+
   <div class="panel panel-default user_card">
+    <div class ="user-card-header"></div>
+    <div class ="user-card-pic-and-stats">
     <% if current_user.avatar.blank? == false %>
     <%= image_tag current_user.avatar.url, size:80, class: "user-pic-nav img-circle avatar avatar_float" %>
     <% end %>
@@ -19,15 +22,16 @@
         </div>
         <div class="card_stat">
         <h4>Followers</h4>
-        <h3>X</h3>
+        <h3><%=@followers.count%></h3>
         </div>
       </div>
+    </div>
 
   </div> <!-- panel-->
 
 <!-- Who to follow-->
     <div class="panel panel-default">
-      <div class="well">
+      <div class="well who-to-follow">
       <h4>Who to follow</h4>
       <ul class="list-group">
         <% @users.each do |user| %>
@@ -44,7 +48,7 @@
               <% if current_user.following.exclude? user.id.to_i %>
               <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-sm btn-primary" %>
               <% elsif current_user.following.include? user.id.to_i %>
-              <%= link_to "Unfollow", unfollow_path(id: user.id), class: "btn btn-sm btn-danger" %>
+              <%= link_to "Following", unfollow_path(id: user.id), class: "btn btn-sm btn-info unfollow-btn" %>
               <% end %>
               </div>
             </div>
@@ -56,7 +60,8 @@
 
 
   <div class="col-md-8 ">
-    <%= render 'tweet_feed', tweet_feed: @tweet_feed %>
+
+    <%= render @tweet_feed %>
 
   </div> <!-- col-->
 </div> <!-- container-->
